@@ -24,8 +24,10 @@ public class LoveFisher extends Script{
 		
 		switch(State.getState()){
 		case FISHING:
+			Action.fish();
 			break;
 		case DROPPING:
+			Action.dropInventory();
 			break;
 		default:
 			break;
