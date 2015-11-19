@@ -30,6 +30,7 @@ public class LoveFisher extends Script{
 			Action.dropInventory();
 			break;
 		default:
+			log("[ERROR]: No State found");
 			break;
 		}
 		
