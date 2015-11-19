@@ -1,9 +1,15 @@
+import java.awt.Graphics;
+
 import org.dreambot.api.methods.Calculations;
+import org.dreambot.api.methods.map.Area;
+import org.dreambot.api.script.Category;
+import org.dreambot.api.script.ScriptManifest;
 
 import com.xboxnolifes.love.framework.script.*;
 
-
+@ScriptManifest(author = "xboxnolifes", category = Category.FISHING, name = "LoveFisher", version = 0.1, description = "My first fishing script")
 public class LoveFisher extends Script{
+	private State currentState;
 
 
 	@Override
@@ -22,19 +28,26 @@ public class LoveFisher extends Script{
 	@Override
 	public int onLoop() {
 		
-		switch(State.getState()){
+		switch(currentState = State.getState(this)){
 		case FISHING:
-			Action.fish();
+			Action.fish(this);
 			break;
 		case DROPPING:
-			Action.dropInventory();
+			Action.dropInventory(this);
 			break;
+		case FINDSPOT:
+			Action.findSpot(this);
 		default:
-			log("[ERROR]: No State found");
+			log(toString());
 			break;
 		}
 		
 		return Calculations.random(163, 1333);
+	}
+
+	@Override
+	public void onPaint(Graphics gfx) {
+		gfx.drawString(currentState.toString(), 0, 0);
 	}
 
 }
